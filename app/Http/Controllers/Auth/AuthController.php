@@ -14,21 +14,23 @@ class AuthController extends Controller
 {
     public function index()
     {
+        if(auth()->check()) {
+            return redirect()->route('admin.dashboard.index');
+        }
         return Inertia::render("Auth/Login");
     }
 
     public function login(AuthLoginRequest $request)
     {
         $cred = [
-            'mobile' => $request->mobile,
+            'email' => $request->email,
             'password' => $request->password,
         ];
 
-        
         if(Auth::attempt($cred)) {
-            $user = User::where('mobile', $request->mobile)->first();
+            $user = User::where('email', $request->email)->first();
             Auth::login($user);
-            return redirect()->route('user.home');
+            return redirect()->route('admin.dashboard.index');
         }
 
         Helper::errorMessage("Invalid Cred");

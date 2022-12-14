@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('states', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
-            $table->string('mcc', 4);
-            $table->string('mobile', 12);
-            $table->string('password');
-            $table->string('password_view')->nullable();
-            $table->enum('status', ['active', 'in_active'])->default('in_active')->comment('1-active, 2-in_active');
+            $table->enum('status', ['active', 'in_active'])->default('in_active')->comment('1-active, 0-in_active');
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
@@ -35,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('states');
     }
 };
