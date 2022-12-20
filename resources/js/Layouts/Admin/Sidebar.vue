@@ -8,13 +8,9 @@
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <Link :href="route('admin.dashboard.index')" class="nav-link text-white" :class="{'active': ['admin.dashboard.index'].includes(route().current())}" aria-current="page">Dashboard</Link>
+            <li v-for="item in sidebarJson" class="nav-item">
+                <Link :href="route(item.route)" class="nav-link text-white" :class="{'active':item.routeArr.includes(route().current())}">{{ item.name  }}</Link>
             </li>
-            <li>
-                <Link :href="route('admin.state.index')" :class="{'active': ['admin.state.index', 'admin.state.create', 'admin.state.edit'].includes(route().current())}" class="nav-link text-white">States</Link>
-            </li>
-            
         </ul>
         <hr>
     </div>
@@ -22,5 +18,11 @@
 
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3';
+import sidebarJson from '@/json/sidebar.json'
+import { onMounted } from 'vue';
+
+onMounted(() => {
+
+})
 
 </script>

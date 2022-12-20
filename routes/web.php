@@ -25,13 +25,22 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['prefix' => "admin", 'as' => 'admin.'], function() {
         Route::get('dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard.index');
 
-        /** Project Routes */
+        /** State Routes */
         Route::group(['prefix' => "state"], function(){
             Route::get('', [Admin\StateController::class, 'index'])->name('state.index');
             Route::get('create', [Admin\StateController::class, 'create'])->name('state.create');
             Route::post('store', [Admin\StateController::class, 'store'])->name('state.store');
             Route::get('edit/{state:id}', [Admin\StateController::class, 'edit'])->name('state.edit');
             Route::put('update/{state:id}', [Admin\StateController::class, 'update'])->name('state.update');
+        });
+
+        /** City Routes */
+        Route::group(['prefix' => "city"], function(){
+            Route::get('', [Admin\CityController::class, 'index'])->name('city.index');
+            Route::get('create', [Admin\CityController::class, 'create'])->name('city.create');
+            Route::post('store', [Admin\CityController::class, 'store'])->name('city.store');
+            Route::get('edit/{city:id}', [Admin\CityController::class, 'edit'])->name('city.edit');
+            Route::put('update/{city:id}', [Admin\CityController::class, 'update'])->name('city.update');
         });
     });
 });
