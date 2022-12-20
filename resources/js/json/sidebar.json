@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Dashboard",
+        "route": "admin.dashboard.index",
+        "routeArr": [
+            "admin.dashboard.index"
+        ]
+    },
+    {
+        "name": "State",
+        "route": "admin.state.index",
+        "routeArr": [
+            "admin.state.index",
+            "admin.state.create",
+            "admin.state.edit"
+        ]
+    },
+    {
+        "name": "City",
+        "route": "admin.city.index",
+        "routeArr": [
+            "admin.city.index",
+            "admin.city.create",
+            "admin.city.edit"
+        ]
+    }
+]

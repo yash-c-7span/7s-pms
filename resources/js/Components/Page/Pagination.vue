@@ -4,13 +4,14 @@
             <ul class="pagination justify-content-end">
                 <li v-for="(link, p) in links" :key="p" class="page-item" :class="{ 'active': link.active }">
                     <span v-if="link.url === null" v-html="link.label" class="page-link"></span>
-                    <Link v-else :href="link.url" v-html="link.label" class="page-link" :only="['states']"></Link>
+                    <Link v-else :href="`${link.url}&limit=${form.limit}`" v-html="link.label" class="page-link" :only="['states']"></Link>
                 </li>
             </ul>
         </div>
         <div class="col-2">
-            <select @change="submitForm" v-model="form.limit" name="limit" class="form-control">
+            <select @change.prevent="submitForm" v-model="form.limit" name="limit" class="form-control">
                 <option value="">Per Page</option>
+                <option value="3">3</option>
                 <option value="10">10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
@@ -21,6 +22,9 @@
 </template>
 <script setup>
 import { Link, useForm } from '@inertiajs/inertia-vue3';
+import { onMounted } from 'vue';
+
+const urlParams = new URLSearchParams(window.location.search);
 
 const props = defineProps({
     links: Array,
@@ -29,13 +33,14 @@ const props = defineProps({
 
 
 const form = useForm({
-    limit:'',
+    page:urlParams.get('page'),
+    limit:urlParams.get('limit') ?? '',
 });
 
 const submitForm = () => {
-    console.log(form.limit);
-    form.get(route(props.route,{
-        limit:form.limit
-    }));
+    form.get(route(props.route));
 }
+
+onMounted(() => {
+})
 </script>

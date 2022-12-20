@@ -3,9 +3,12 @@
 namespace App\Services;
 
 use App\Models\State;
+use App\Traits\useService;
 
 class StateService
 {
+    use useService;
+
     private $state;
 
     public function __construct()
@@ -16,7 +19,7 @@ class StateService
     public function listing(string ...$relationShip)
     {
         $states = $this->state->with($relationShip);
-        return (config('site.pagination.limit') == -1) ? $states->get() : $states->paginate(config('site.pagination.limit'));
+        return (config("site.pagination.limit") == -1) ? $states->get() : $states->paginate(config("site.pagination.limit"));
     }
 
     public function store(array $inputs)
